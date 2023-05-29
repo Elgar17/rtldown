@@ -1,0 +1,1 @@
+<h2 align="center">✏️ A simple RTL markdown editor</h2
