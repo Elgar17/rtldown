@@ -3,12 +3,14 @@ import { ConfigProvider } from 'antd'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
+import { themeToken } from '@/constants'
 import 'reset-css'
 import './index.css'
+import '@/styles/global.less'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ConfigProvider direction="rtl">
+    <ConfigProvider theme={themeToken} direction="rtl">
       <BrowserRouter>
         <App />
       </BrowserRouter>
