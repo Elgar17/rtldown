@@ -5,8 +5,8 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import { themeToken } from '@/constants'
 import 'reset-css'
-import './index.css'
 import '@/styles/global.less'
+import 'simplebar-react/dist/simplebar.min.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

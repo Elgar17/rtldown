@@ -1,10 +1,11 @@
 // import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import './index.less'
+import SimpleBar from 'simplebar-react'
 import { MilkdownEditorWrapper } from '../editor'
 
 const Main = () => {
   return (
-    <div className="main-content">
+    <SimpleBar autoHide={false} color="" className="main-content">
       <MilkdownEditorWrapper />
       {/* <Router>
         <Switch>
@@ -12,7 +13,7 @@ const Main = () => {
           <Route path="/mine/login" component={login}></Route>
         </Switch>
       </Router> */}
-    </div>
+    </SimpleBar>
   )
 }
 
