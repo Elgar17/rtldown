@@ -27,7 +27,13 @@ function createWindow() {
     show: false,
     autoHideMenuBar: true,
     icon: path.join(process.env.PUBLIC, 'editor.jpg'),
+    darkTheme: true,
     webPreferences: {
+      // The renderer process is allowed to access the Node.js API.
+      contextIsolation: false,
+      // The renderer process is allowed to access the Node.js API.
+      nodeIntegration: true,
+      spellcheck: false,
       preload: path.join(__dirname, 'preload.js'),
     },
   })
@@ -38,7 +44,7 @@ function createWindow() {
   })
 
   if (VITE_DEV_SERVER_URL) {
-    win.loadURL(VITE_DEV_SERVER_URL)
+    win.loadURL(VITE_DEV_SERVER_URL + 'open')
   } else {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))

@@ -21,8 +21,11 @@ const MilkdownEditor: React.FC = () => {
 
 export const MilkdownEditorWrapper: React.FC = () => {
   return (
-    <MilkdownProvider>
-      <MilkdownEditor />
-    </MilkdownProvider>
+    <div>
+      <div className="file-name">hello.md</div>
+      <MilkdownProvider>
+        <MilkdownEditor />
+      </MilkdownProvider>
+    </div>
   )
 }
