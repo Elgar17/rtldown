@@ -1,30 +1,20 @@
 import { Tree } from 'antd'
-import type { DataNode, DirectoryTreeProps } from 'antd/es/tree'
+import type { DirectoryTreeProps } from 'antd/es/tree'
+import { FileNode } from '@/components/sidbar'
 import FileOperation from './FileOperation'
 import './index.less'
 
 const { DirectoryTree } = Tree
 
-const treeData: DataNode[] = [
-  {
-    title: 'ەستەلىك',
-    key: '0-0',
-    children: [
-      { title: 'test', key: '0-0-0', isLeaf: true },
-      { title: 'hello', key: '0-0-1', isLeaf: true },
-    ],
-  },
-  {
-    title: 'note',
-    key: '0-1',
-    children: [
-      { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
-      { title: 'leaf 1-1', key: '0-1-1', isLeaf: true },
-    ],
-  },
-]
+interface FileProps {
+  fileNode: FileNode
+}
+const fieldNames = {
+  key: 'path',
+  title: 'name',
+}
 
-const File = () => {
+const File: React.FC<FileProps> = ({ fileNode }) => {
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
     console.log('Trigger Select', keys, info)
   }
@@ -40,7 +30,10 @@ const File = () => {
         defaultExpandAll
         onSelect={onSelect}
         onExpand={onExpand}
-        treeData={treeData}
+        fieldNames={fieldNames}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        treeData={[fileNode]}
       />
     </div>
   )

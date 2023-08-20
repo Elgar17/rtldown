@@ -1,17 +1,24 @@
 import { Button } from 'antd'
-// import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './index.less'
+import { useEffect } from 'react'
 
 const Open = () => {
+  const navigate = useNavigate()
+  const { ipcRenderer } = window.require('electron')
+
+  useEffect(() => {
+    // TODO: 打开是时，防止触发两次
+    ipcRenderer.on('directory:selected', (_, selectedDirectory) => {
+      // 使用选择的目录路径进行默认保存路径的逻辑
+      // TODO：触发两次，待优化
+      navigate('/', { state: { dirPath: selectedDirectory } })
+    })
+  }, [])
 
   const openFile = () => {
     // 选择一个目录
-    const { ipcRenderer } = window.require('electron')
     ipcRenderer.send('selectDirectory')
-    ipcRenderer.on('directory:selected', (_, selectedDirectory) => {
-      // 使用选择的目录路径进行默认保存路径的逻辑
-      console.log(selectedDirectory)
-    })
   }
   return (
     <div className="open-continer">
