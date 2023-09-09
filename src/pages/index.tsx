@@ -21,6 +21,11 @@ const Index = () => {
     ipcRenderer.on('directory:tree', (_, fileTree) => {
       setFileTree(fileTree)
     })
+
+    return () => {
+      ipcRenderer.removeAllListeners('directory:tree')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
   return (

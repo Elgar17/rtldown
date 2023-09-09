@@ -2,20 +2,20 @@ import { ipcMain } from 'electron'
 import fs from 'fs'
 import path from 'path'
 
-function handleDirectorySelection(event: any, args: any) {
-  const { dirPath } = args
-
-  readDirectory(dirPath).then((fileTree) => {
-    event.sender.send('directory:tree', fileTree)
-  })
-}
-
 interface FileNode {
   name: string
   path: string
   type: 'directory' | 'file'
   isLeaf: boolean
   children?: FileNode[]
+}
+
+function handleDirectorySelection(event: any, args: any) {
+  const { dirPath } = args
+
+  readDirectory(dirPath).then((fileTree) => {
+    event.sender.send('directory:tree', fileTree)
+  })
 }
 
 /**
@@ -47,7 +47,7 @@ async function readDirectory(directoryPath: string): Promise<FileNode> {
           name: file,
           path: filePath,
           type: 'file',
-          isLeaf: true
+          isLeaf: true,
         })
       }
     }

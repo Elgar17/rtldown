@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import path from 'node:path'
 import './open-directory'
 import './read-dir'
+import './file-operation'
 
 // The built directory structure
 //

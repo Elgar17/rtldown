@@ -15,8 +15,13 @@ const fieldNames = {
 }
 
 const File: React.FC<FileProps> = ({ fileNode }) => {
+  const { ipcRenderer } = window.require('electron')
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
     console.log('Trigger Select', keys, info)
+    if (info.node.isLeaf) {
+      // 如果是叶子节点，则打开文件
+      ipcRenderer.send('read:file', keys[0])
+    }
   }
 
   const onExpand: DirectoryTreeProps['onExpand'] = (keys, info) => {
