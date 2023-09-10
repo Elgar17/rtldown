@@ -12,8 +12,8 @@ const Main: React.FC<Props> = ({ node }) => {
     console.log(text)
   }
   return (
-    <SimpleBar autoHide={false} color="" className="main-content">
-      <MilkdownEditorWrapper onChange={onChange} node={node}/>
+    <SimpleBar autoHide={false} className="main-content">
+      <MilkdownEditorWrapper onChange={onChange} node={node} />
     </SimpleBar>
   )
 }

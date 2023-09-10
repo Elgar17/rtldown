@@ -52,7 +52,7 @@ export const MilkdownEditorWrapper: React.FC<MDEditorProps> = ({
   node,
 }) => {
   const { ipcRenderer } = window.require('electron')
-  const [text, setText] = useState('# hello')
+  const [text, setText] = useState('')
 
   useEffect(() => {
     ipcRenderer.on('read-file-reply', (_, fileCtx) => {
@@ -65,7 +65,7 @@ export const MilkdownEditorWrapper: React.FC<MDEditorProps> = ({
 
   return (
     <div>
-      <div className="file-name">{node?.name}</div>
+      <div className="file-name">{node?.isLeaf && node?.name}</div>
       <MilkdownProvider>
         <MilkdownEditor text={text} onChange={onChange} />
       </MilkdownProvider>
