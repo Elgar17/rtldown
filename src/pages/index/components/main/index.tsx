@@ -3,16 +3,17 @@ import './index.less'
 import SimpleBar from 'simplebar-react'
 import { MilkdownEditorWrapper } from '../editor'
 
-const Main = () => {
+interface Props {
+  node?: any
+}
+
+const Main: React.FC<Props> = ({ node }) => {
+  const onChange = (text: string) => {
+    console.log(text)
+  }
   return (
     <SimpleBar autoHide={false} color="" className="main-content">
-      <MilkdownEditorWrapper />
-      {/* <Router>
-        <Switch>
-          <Route path="/mine/" component={login} exact></Route>
-          <Route path="/mine/login" component={login}></Route>
-        </Switch>
-      </Router> */}
+      <MilkdownEditorWrapper onChange={onChange} node={node}/>
     </SimpleBar>
   )
 }

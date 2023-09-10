@@ -1,5 +1,5 @@
 // import React from 'react'
-import Index from '@/pages'
+import Index from '@/pages/index'
 import OpenFile from '@/pages/open-file'
 
 // const LoadingFC = (com: JSX.Element) => (
@@ -15,20 +15,6 @@ const routes = [
     path: '/open',
     element: <OpenFile />,
   },
-  //   {
-  //     path: '/',
-  //     element: LoadingFC(<Home />),
-  // children: [
-  //   {
-  //     path: '/new',
-  //     element: LoadingFC(<User />),
-  //   },
-  // ],
-  //   },
-  //   {
-  //     path: '/login',
-  //     element: LoadingFC(<Login />),
-  //   },
 ]
 
 export default routes

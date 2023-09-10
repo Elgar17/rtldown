@@ -1,10 +1,11 @@
-import Sidebar, { FileNode } from '@/components/sidbar'
-import Main from '@/components/main'
-import { useLocation, Link } from 'react-router-dom'
+import Sidebar, { FileNode } from './components/sidbar'
+import Main from './components/main'
+import { useLocation } from 'react-router-dom'
 import './index.less'
 import { useEffect, useState } from 'react'
 
 const Index = () => {
+  const [cuNode, setCuNode] = useState<FileNode | null>(null)
   const location = useLocation()
   const { ipcRenderer } = window.require('electron')
   const [fileTree, setFileTree] = useState<FileNode>({
@@ -28,11 +29,14 @@ const Index = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
+  const onSelected = (fileNode: any) => {
+    setCuNode(fileNode)
+  }
+
   return (
     <div className="index-continer">
-      <Link to="/open">首页</Link>
-      <Main />
-      <Sidebar fileTree={fileTree} />
+      <Main node={cuNode} />
+      <Sidebar fileTree={fileTree} onSelected={onSelected} />
     </div>
   )
 }

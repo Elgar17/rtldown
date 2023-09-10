@@ -1,53 +1,56 @@
 import React, { useEffect, useState } from 'react'
-import { defaultValueCtx, Editor, rootCtx } from '@milkdown/core'
+import { Editor, rootCtx } from '@milkdown/core'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { nord } from '@milkdown/theme-nord'
+import { replaceAll } from '@milkdown/utils'
+import { listener, listenerCtx } from '@milkdown/plugin-listener'
 import { Milkdown, MilkdownProvider, useEditor } from '@milkdown/react'
 import { commonmark } from '@milkdown/preset-commonmark'
 import '@milkdown/theme-nord/style.css'
 import './index.less'
 
 interface MilkdownProps {
-  // onChange: (value: string) => void
+  onChange: (value: string) => void
   text: string
 }
 
-const MilkdownEditor: React.FC<MilkdownProps> = ({ text }) => {
+const MilkdownEditor: React.FC<MilkdownProps> = ({ text, onChange }) => {
   const { get } = useEditor((root) =>
     Editor.make()
       .config(nord)
       .config((ctx) => {
         ctx.set(rootCtx, root)
-        ctx.set(defaultValueCtx, text)
+
+        ctx.get(listenerCtx).markdownUpdated((_, markdown) => {
+          onChange(markdown)
+        })
       })
       .use(commonmark)
+      .use(listener)
   )
-  // const [editor] = useState(get())
 
-  //   // 更新内容
   useEffect(() => {
     if (!text) return
-    console.log(
-      '火箭：',
-      get()?.config((ctx) => {
-        // 更新内容为 text
-        ctx.set(rootCtx, text)
-        // console.log(ctx);
-      })
-    )
-    // setText(get().getContent())
+    get()?.action(replaceAll(text))
   }, [text])
 
-  return <Milkdown />
+  return (
+    <div>
+      <Milkdown />
+    </div>
+  )
 }
 
 interface MDEditorProps {
   onChange: (value: string) => void
-  // text: string
+  node: any
 }
 
-export const MilkdownEditorWrapper: React.FC<MDEditorProps> = () => {
+export const MilkdownEditorWrapper: React.FC<MDEditorProps> = ({
+  onChange,
+  node,
+}) => {
   const { ipcRenderer } = window.require('electron')
   const [text, setText] = useState('# hello')
 
@@ -62,10 +65,9 @@ export const MilkdownEditorWrapper: React.FC<MDEditorProps> = () => {
 
   return (
     <div>
-      <div className="file-name">hello.md</div>
-      <button>获取内容</button>
+      <div className="file-name">{node?.name}</div>
       <MilkdownProvider>
-        <MilkdownEditor text={text} />
+        <MilkdownEditor text={text} onChange={onChange} />
       </MilkdownProvider>
     </div>
   )

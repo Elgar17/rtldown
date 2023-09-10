@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './index.less'
 import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
-import File from '@/components/file'
+import File from '../file'
 
 export interface FileNode {
   name: string
@@ -14,15 +14,16 @@ export interface FileNode {
 
 interface SidebarProps {
   fileTree: FileNode
+  onSelected: (path: string) => void
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ fileTree }) => {
+const Sidebar: React.FC<SidebarProps> = ({ fileTree, onSelected }) => {
 
   const items: TabsProps['items'] = [
     {
       key: '1',
       label: `قۇجات`,
-      children: <File fileNode={fileTree} />,
+      children: <File fileNode={fileTree} onSelected={onSelected} />,
     },
     {
       key: '2',
