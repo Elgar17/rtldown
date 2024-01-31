@@ -16,6 +16,15 @@ function handleDirectorySelection(event: any, args: any) {
   readDirectory(dirPath).then((fileTree) => {
     event.sender.send('directory:tree', fileTree)
   })
+
+  // 检测 dirPath 目录下的文件变化
+  fs.watch(dirPath, (eventType: string) => {
+    if (eventType === 'rename' || eventType === 'change') {
+      readDirectory(dirPath).then((fileTree) => {
+        event.sender.send('directory:tree', fileTree)
+      })
+    }
+  })
 }
 
 /**

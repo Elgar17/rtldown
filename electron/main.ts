@@ -52,6 +52,7 @@ function createWindow() {
     // win.loadFile('dist/index.html')
     win.loadFile(path.join(process.env.DIST, 'index.html'))
   }
+  win.webContents.openDevTools()
 
   // 防止打开时白屏
   win.on('ready-to-show', () => {
